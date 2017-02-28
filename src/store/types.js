@@ -1,0 +1,2 @@
+// 侧边栏
+export const 'CHANGE_LEFTNAV_STATUS' = 'CHANGE_LEFTNAV_STATUS'
