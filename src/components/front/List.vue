@@ -1,20 +1,13 @@
 <template lang="html">
-    <tabs>
-      <tab title="FULL" :selected="true" >
-        <full :content="articles"></full>
-      </tab>
-      <tab title="SIMPLE">
+    <div>
         <simple :content="articles"></simple>
-      </tab>
-    </tabs>
+    </div>
+
 </template>
 
 <script>
-import Tabs from './article/tabs.vue'
-import Tab from './article/tab.vue'
-import Full from './article/item.vue'
 import Simple from './article/list.vue'
-
+import api from '../../api/request.js'
 import articleData from '../../api/articles.js'
 
 export default {
@@ -23,11 +16,19 @@ export default {
       articles: []
     }
   },
-  components: {Tabs, Tab, Full, Simple},
-  created () {
-    articleData.getArticles(articles => {
-      this.articles = articles;
-    })
+  components: {Simple},
+  methods: {
+    getList() {
+      articleApi.getListFront({page: this.page, limit:this.limit})
+          .then(result => {
+            console.log(result)
+            this.articles = result.data.articleList
+          })
+    }
+  },
+
+  mounted() {
+    this.getList()
   }
 }
 </script>

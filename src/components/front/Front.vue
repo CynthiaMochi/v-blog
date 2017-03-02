@@ -1,7 +1,9 @@
 <template>
-  <div class="wrapper">
+  <div>
     <vheader></vheader>
+
     <router-view></router-view>
+
     <vfooter></vfooter>
   </div>
 
@@ -23,5 +25,9 @@ export default {
 }
 </script>
 <style>
+  .wrapper{
+    width: 80%;
+    margin: 10px auto;
+  }
 
 </style>

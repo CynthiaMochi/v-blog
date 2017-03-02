@@ -11,7 +11,7 @@ import Admin from '../components/back/Admin.vue'
 import ArticleCreate from '../components/back/article/ArticleCreate.vue'
 import ArticleList from '../components/back/article/ArticleList.vue'
 import ArticleEdit from '../components/back/article/ArticleEdit.vue'
-import TagList from '../components/back/TagList.vue'
+import TagList from '../components/back/tag/TagList.vue'
 
 import NotFound from '../components/NotFound.vue'
     // linkActiveClass: 'is-active',
@@ -30,33 +30,33 @@ export default [
     {
         path: '/admin',
         component: Admin,
-        name: '管理面板',
+        name: '管理文章',
         meta: {
             requireAuth: true,
         },
         children: [
-            { 
-              path: '', 
-              redirect: { name: '管理面板'} 
+            {
+              path: '',
+              redirect: { name: '管理文章'}
             },
-            {  
-              path: 'article/edit',  
-              name: '创建文章', 
+            {
+              path: 'article/edit',
+              name: '创建文章',
               component: ArticleEdit
             },
-            {  
-              path: 'article/list',  
-              name: '管理文章', 
+            {
+              path: 'article/list',
+              name: '管理文章',
               component: ArticleList
             },
-            {  
-              path: 'article/edit/:id',  
-              name: '编辑文章', 
+            {
+              path: 'article/edit/:id',
+              name: '编辑文章',
               component: ArticleEdit
             },
-            {  
-              path: 'tag/list',  
-              name: '标签管理', 
+            {
+              path: 'tag/list',
+              name: '标签管理',
               component: TagList
             }
         ]

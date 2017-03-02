@@ -13,7 +13,7 @@ let ArticleSchema = new Schema({
     },
     tags: {
         type: ObjectId,
-        ref: 'Category'
+        ref: 'Tag'
     }
 }, {
     timestamps: true
@@ -24,12 +24,14 @@ ArticleSchema.statics = {
     fetch() {
         return this
             .find()
+            .populate('tags')
             .sort({_id: -1})
     },
 
     findById(id) {
         return this
             .findOne({_id: id})
+            .populate('tags')
             .exec();
     }
 }

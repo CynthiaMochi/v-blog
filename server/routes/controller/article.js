@@ -7,7 +7,7 @@
 //根据tag筛选
 const mongoose = require('mongoose')
 const Article = mongoose.model('Article')
-const Category = mongoose.model('Category')
+const Tag = mongoose.model('Tag')
 
 // 在路由中写回调，操作获得的数据
 
@@ -24,7 +24,7 @@ const Category = mongoose.model('Category')
 
 
 module.exports = {
-    find:function (id) {
+    find: function (id) {
         // 只更新第一天出现的记录，+1
         Article.update({ _id: id}, {$inc: {pv: 1}}, function (err) {
             if (err) {
@@ -33,39 +33,62 @@ module.exports = {
         })
         // 可能要添加评论功能
         return Article.findById(id)
-                        .exec()
     },
 
 // 需要验证，带分页
 // 能不能不要每次都写两种方法，把验证拦截统一？？
 // page:第几页， limit：一页几个
-    getLists:function (page, limit) {
+    getList: function (page, limit, tags) {
 
         if (page && limit) {
             const skip = (page - 1) * limit
             // MongoDB 的 _id 生成算法中已经包含了当前的时间，推荐的按时间排序的写法。
             // modal.find({_id: {$lt: id}}, callback).limit(12)
-            return Promise.all([
-                Article.fetch()
-                        .skip(skip)
-                        .limit(limit)
-                        .exec(),
-                Article.count().exec()
-                ])
+            if (tags) {
+              // let tagsId = tag.split(','),
+              //     promises = tagsId.map((tag) => {
+              //       return Article.find({tag: tag})
+              //                     .skip(skip)
+              //                     .limit(limit)
+              //                     .exec()
+              //     })
+              //     return Promise.all(promises)
+              // 怎么拼接文章
+            } else {
+              return Promise.all([
+                  Article.fetch()
+                          .skip(skip)
+                          .limit(limit)
+                          .exec(),
+                  Article.count().exec()
+                  ])
+            }
         } else {
             return Article.fetch()
-                            .exec()
+                          .exec()
         }
     },
 
-    create:function (article) {
+    create: function (article) {
+      // tags也要保留关联的article
+        let articleId = '';
         _article = new Article(article)
-
         return _article.save()
+                  .then(articleR => {
+                      articleId = articleR._id;
+                      return Tag.findById(articleR.tags)
+                  })
+                  .then(tag => {
+                      tag.articles.push(articleId)
+                      return tag.save()
+                  })
+                  .catch(err => {
+                    console.log(err)
+                  })
     },
 
     //后期是否能创建tag
-    getByTag:function (tag) {
+    getByTag: function (tag) {
         // {tag}的格式
         // 是根据tag的id?保存
         return Article.find({tag})
@@ -73,12 +96,65 @@ module.exports = {
                         .exec()
     },
 
-    update:function (id, data) {
-        return Article.update({_id: id}, {$set: data}).exec()
+    update: function (id, data) {
+      // 要更新tags
+      // 如果tags没有改变，就不会发tagsid
+        if (data.tags) {
+            // 如果tags有改变
+            // 需要将老的tag里的文章id删除
+            // 新的tag添加id
+            return Article.findById(id)
+                  .then(article => {
+                      return Promise.all([
+                        Tag.findById(article.tags),
+                        Tag.findById(data.tags),
+                        Article.update({_id: id}, {$set: data}).exec()
+                      ])
+                  })
+                  .then(results => {
+                      let oldTag = results[0],
+                          newTag = results[1];
+                      oldTag.articles.splice(oldTag.articles.indexOf(id), 1)
+                      newTag.articles.push(id)
+
+                      return Promise.all([
+                          oldTag.save(),
+                          newTag.save()
+                        ])
+                  })
+                  .catch(err => {
+                      console.log(err)
+                  })
+        } else {
+            delete data.tags;
+            return Article.update({_id: id}, {$set: data}).exec()
+        }
     },
     // 可以批量删除，传入数组
-     remove:function (ids) {
-        return Article.remove({_id: {$in: ids}}).exec()
+     remove: function (ids) {
+        // 批量删除要把tag里的article也删了
+        // 根据articleId查找tag
+        // tag删除articleid
+        let promises = ids.map(id => {
+          return Article.findById(id)
+                  .then(article => {
+                     return Tag.findById(article.tags)
+                  })
+                  .then(tag => {
+                     tag.articles.splice(tag.articles.indexOf(id, 1))
+                     return tag.save()
+                  })
+        })
+
+       return Promise.all(promises)
+                  .then(results => {
+                      return Article.remove({_id: {$in: ids}})
+                                .exec();
+                  })
+                 .catch(err => {
+                    console.log(err)
+                 })
     }
+
 
 }

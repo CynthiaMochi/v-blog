@@ -1,29 +1,46 @@
-<template>  
-<div>
-  <section class="section" v-for="data in content">
+<template>
+  <section class="section">
     <div class="container">
       <div class="heading">
-        <h1 class="title is-4"><a href="article/:id">{{ data.title }}</a></h1>
-        <p>{{ data.digest }}</p>
-        <a><span>more</span></a>
+        <h1 class="title is-4">
+          <router-link :to="{path:`/article/${content._id}`}">
+            {{ content.title }}
+          </router-link>
+        </h1>
+        <p>{{ content.content}}</p>
+          <router-link :to="{path:`/article/${content._id}`}">
+            <span>more</span>
+          </router-link>
         <br>
         <small>
             <span class="icon"><i class="fa fa-user"></i></span>cynthia
-            <span class="icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ data.date }}
+            <span class="icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ content.updatedAt }}
         </small>
       </div>
     </div>
   </section>
-</div>
 </template>
 
 <script>
 export default {
     props: ['content']
 }
-    
+
 </script>
 
-<style>
-    
+<style scoped>
+  a.head {
+    border: 0px;
+    color: #00d1b2;
+    cursor: pointer;
+  }
+  a.more {
+    border: 0px;
+    display: inline-block;
+    color: #00d1b2;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-transition: none 86ms ease-out;
+    transition: none 86ms ease-out;
+  }
 </style>

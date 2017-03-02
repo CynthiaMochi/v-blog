@@ -4,7 +4,7 @@
         <menu-item icon="twitter">
           <span>文章管理</span>
           <menus slot="sub">
-            <menu-item :to="{ path: '/admin/article/create'}" icon="qq" :is-active="true">创建文章</menu-item>
+            <menu-item :to="{ path: '/admin/article/edit'}" icon="qq" :is-active="true">创建文章</menu-item>
             <menu-item :to="{ path: '/admin/article/list'}" icon="qq" :is-active="true">管理文章</menu-item>
           </menus>
         </menu-item>

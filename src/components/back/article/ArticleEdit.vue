@@ -16,8 +16,8 @@
           <label class="label">所属标签</label>
           <span class="select" >
             <select v-model="form.tags"
-              @change="form.validate('tags')">
-                <option>爱情</option>
+              @change="onSelect">
+                <option v-for="opt in tag_list" v-model="opt.name" :tag="opt.id">{{ opt.name }}</option>
             </select>
           </span>
           <span class="help is-danger"
@@ -55,6 +55,8 @@
     export default Edit;
 </script>
 
-<style>
-
+<style scoped>
+  .textarea {
+    height: 500px;
+  }
 </style>

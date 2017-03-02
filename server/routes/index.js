@@ -1,7 +1,9 @@
 const Article = require('../db/models/article')
-const Category = require('../db/models/category')
+const Tag = require('../db/models/tag')
 const User = require('../db/models/user')
 
 module.exports = function (app) {
     app.use('/api', require('./article'))
+    app.use('/api', require('./tag'))
+
 }
