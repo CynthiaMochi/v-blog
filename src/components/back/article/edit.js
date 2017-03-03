@@ -11,7 +11,7 @@ let tagApi = api.tag
 export default {
     name: 'article_edit',
     data() {
-        var onRequired = (value) => {
+        let onRequired = (value) => {
             return value === '';
         };
 

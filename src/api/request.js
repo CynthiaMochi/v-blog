@@ -1,12 +1,23 @@
 import axios from 'axios'
+import store from '../store'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const back_instance = axios.create()
 const front_instance = axios.create()
 
-
 back_instance.defaults.headers.post['Content-Type'] = 'application/json'
+
+if (localStorage.getItem('jwt')) {
+  /* localStorage.getItem('jwt')是带引号的字符串
+    Bearer token(通过Authorization头部字段发送到服务端便于验证)的格式：Bearer XXXXXXXXXX
+  */
+  console.log(localStorage.getItem('jwt'))
+    back_instance.defaults.headers.common['Authorization'] = 'Bearer' + localStorage.getItem('jwt').replace(/(^\")|(\"$)/g,'')
+}
+
+axios.interceptors.request.use = back_instance.interceptors.request.use = front_instance.interceptors.request.use
+
 
 //front_instance.interceptors.request
 
@@ -14,8 +25,8 @@ export default {
   user: {
         // 关于token处理后面添加
         // 注册
-        signin(data) {
-          return axios.post('/api/signin', data)
+        signup(data) {
+          return axios.post('/api/signup', data)
         },
         //
         login(data) {

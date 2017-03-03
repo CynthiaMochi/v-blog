@@ -41,7 +41,6 @@ router.post('/article/create', function (req, res, next) {
           tags: tags
         })
         .then((result) => {
-          console.log(result)
             if (result) {
                 res.status(200)
                     .send({
@@ -93,9 +92,11 @@ router.post('/article/list/back', function (req, res, next) {
 
 router.post('/article/list/front', function (req, res, next) {
   console.log(req.body)
-    let {page, limit} = req.body
-    articleApi.getList(page, limit)
+  // 如果有tag
+    let {page, limit, tags} = req.body
+    articleApi.getList(page, limit, tags)
         .then((result) => {
+          console.log(result[0])
             let articleList = result[0],
                 total = result[1],
                 totalPage = Math.ceil(total / limit);

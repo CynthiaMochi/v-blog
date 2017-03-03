@@ -1,4 +1,5 @@
 import api from '../../../api/request.js';
+import moment from 'moment';
 
 let articleApi = api.article
 export default {
@@ -35,8 +36,8 @@ export default {
                       content: content,
                       contentToMark: contentToMark,
                       tags: name,
-                      updatedAt: updatedAt,
-                      createdAt: createdAt
+                      updatedAt: moment(updatedAt).format('YYYY-MM-DD HH:mm:ss') ,
+                      createdAt: moment(createdAt).format('YYYY-MM-DD HH:mm:ss')
                     }
                 })
                 this.pagination.total = total;
@@ -44,9 +45,7 @@ export default {
         },
 
         onTableChange() {
-          console.log('change')
           this.pagination.page++;
-          console.log(this.pagination.page)
           this.getList();
         },
         // 选择表格项目变化时
@@ -92,7 +91,6 @@ export default {
             } else {
                 id = article.id
             }
-            console.log(this.batch_id)
             this.$modal.confirm({
                 content: '确认要删除吗?',
                 onOk: this.okCb.bind(this, id)
@@ -101,7 +99,6 @@ export default {
 
         // String id
         okCb(id) {
-          console.log(id)
             articleApi.remove({id: id})
                 .then((result) => {
                     this.$notify.success({content: '删除成功'})

@@ -14,7 +14,7 @@
         <br>
         <small>
             <span class="icon"><i class="fa fa-user"></i></span>cynthia
-            <span class="icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ content.updatedAt }}
+            <span class="icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ updatedAt }}
         </small>
       </div>
     </div>
@@ -22,8 +22,14 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
-    props: ['content']
+    props: ['content'],
+    computed: {
+      updatedAt() {
+        return moment(this.content.updatedAt).format('YYYY-MM-DD HH:mm:ss')
+      }
+    }
 }
 
 </script>

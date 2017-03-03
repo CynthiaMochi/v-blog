@@ -45,15 +45,20 @@ module.exports = {
             // MongoDB 的 _id 生成算法中已经包含了当前的时间，推荐的按时间排序的写法。
             // modal.find({_id: {$lt: id}}, callback).limit(12)
             if (tags) {
-              // let tagsId = tag.split(','),
-              //     promises = tagsId.map((tag) => {
-              //       return Article.find({tag: tag})
-              //                     .skip(skip)
-              //                     .limit(limit)
-              //                     .exec()
-              //     })
-              //     return Promise.all(promises)
-              // 怎么拼接文章
+              // 前端根据标签分类
+              let tagsId = tags.split(',');
+
+              return Promise.all([
+                  Article.find({tags: {$in: tagsId}})
+                                .skip(skip)
+                                .limit(limit)
+                                .exec(),
+                  Article.count().exec()
+                ])
+              Article.find({tags: {$in: tagsId}})
+                            .skip(skip)
+                            .limit(limit)
+                            .exec()
             } else {
               return Promise.all([
                   Article.fetch()
@@ -64,6 +69,7 @@ module.exports = {
                   ])
             }
         } else {
+          // 获取所有，还用不上
             return Article.fetch()
                           .exec()
         }
