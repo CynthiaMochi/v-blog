@@ -14,6 +14,8 @@ export default {
 
 }
 </script>
-<style>
-    
+<style scoped>
+    footer {
+      padding: 2rem;
+    }
 </style>

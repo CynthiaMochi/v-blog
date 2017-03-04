@@ -24,19 +24,19 @@ const router = new VueRouter({
 })
 
 // 先不处理登录，token等问题
-// router.beforeEach(({meta, path}, from, next) => {
-//   let {auth = true} = meta,
-//   isLogin = store.state.token;
+router.beforeEach(({meta, path}, from, next) => {
+  let {auth = true} = meta,
+      isLogin = Boolean(store.state.token);
+  console.log(store.state)
+  if (auth && !isLogin && path !== '/login') {
+    return next({path: '/login'})
+  }
 
-//   if (auth && !isLogin && path !== '/login') {
-//     return next({path: '/login'})
-//   }
+  if (isLogin && (path === '/login' || path === "/signup")) {
+    return next({path: '/admin'})
+  }
 
-//   if (isLogin && path === '/login' || path === "/signup") {
-//     return next({path: '/admin'})
-//   }
-
-//   next()
-// })
+  next()
+})
 
 export default router

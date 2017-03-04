@@ -23,7 +23,9 @@ module.exports = {
   },
 
   login: function(data) {
-    return User.findOne({name: data.username})
+    console.log(data)
+    return User.findOne({username: data.username})
+                .exec()
   }
 }
 

@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="article-pane">
       <data-table :data="article_list" :change="onTableChange" :on-select-change="onSelectChange" checkable show-index :pagination="pagination" bordered rowKey="title">
-          <table-toolbar has-refresh has-columns-control>
+          <table-toolbar>
             <template slot="left">
               <div class="level-item">
                 <a class="button is-primary is-outlined"
@@ -52,5 +52,7 @@ export default List
 </script>
 
 <style>
-
+  .article-pane {
+    padding: 2rem;
+  }
 </style>

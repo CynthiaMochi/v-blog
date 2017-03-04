@@ -12,17 +12,7 @@
       <span></span>
     </span>
     <div class="nav-right nav-menu">
-      <a class="nav-item is-tab is-hidden-tablet is-active">Home</a>
-      <a class="nav-item is-tab is-hidden-tablet">Features</a>
-      <a class="nav-item is-tab is-hidden-tablet">Pricing</a>
-      <a class="nav-item is-tab is-hidden-tablet">About</a>
-      <a class="nav-item is-tab">
-        <figure class="image is-16x16" style="margin-right: 8px;">
-          <img src="http://bulma.io/images/jgthms.png">
-        </figure>
-        Profile
-      </a>
-      <a class="nav-item is-tab">Log out</a>
+      <a class="nav-item is-tab"@click="onLogout" ><span class="icon is-small"><i class="fa fa-user"></i></span>Log out</a>
     </div>
   </div>
 </nav>
@@ -30,10 +20,27 @@
 
 <script>
 export default {
+  data() {
+    return {
 
+    }
+  },
+
+  methods: {
+    onLogout() {
+      this.$modal.confirm({
+        content: '确认退出吗?',
+        onOk: this.onOk
+      })
+    },
+
+    onOk() {
+      this.$store.dispatch('UserLogout')
+    }
+  }
 }
 </script>
 
 <style>
-    
+
 </style>

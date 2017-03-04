@@ -7,7 +7,7 @@ module.exports = function (name) {
 
     const token = jwt.sign({
         name: name,
-        esp: parseInt(expiry.getTime()/1000)
+        exp: parseInt(expiry.getTime()/1000)
     }, process.env.JWT_SECRET)
 
     return token;

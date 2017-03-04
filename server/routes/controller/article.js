@@ -50,15 +50,13 @@ module.exports = {
 
               return Promise.all([
                   Article.find({tags: {$in: tagsId}})
-                                .skip(skip)
-                                .limit(limit)
-                                .exec(),
-                  Article.count().exec()
+                        .populate('tags')
+                        .sort({_id: -1})
+                        .skip(skip)
+                        .limit(limit)
+                        .exec(),
+                  Article.count({tags: {$in: tagsId}}).exec()
                 ])
-              Article.find({tags: {$in: tagsId}})
-                            .skip(skip)
-                            .limit(limit)
-                            .exec()
             } else {
               return Promise.all([
                   Article.fetch()
@@ -69,9 +67,11 @@ module.exports = {
                   ])
             }
         } else {
-          // 获取所有，还用不上
-            return Article.fetch()
-                          .exec()
+          return Promise.all([
+              Article.fetch()
+                      .exec(),
+              Article.count().exec()
+              ])
         }
     },
 
@@ -98,8 +98,8 @@ module.exports = {
         // {tag}的格式
         // 是根据tag的id?保存
         return Article.find({tag})
-                        .sort({_id: -1})
-                        .exec()
+                      .sort({_id: -1})
+                      .exec()
     },
 
     update: function (id, data) {

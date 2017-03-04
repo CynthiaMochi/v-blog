@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+require('dotenv').load();
 const router = express.Router()
 const sha1 = require('sha1')
 const mongoose = require('mongoose')
@@ -60,6 +61,7 @@ router.post('/login', function(req, res, next) {
     password: password
   })
   .then(user => {
+    console.log(user)
     if (user && user.password === password) {
       res.status(200)
         .send({token: createToken(username)})

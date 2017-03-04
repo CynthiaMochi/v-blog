@@ -40,7 +40,7 @@ export default {
     },
 
     mounted() {
-        // this.$validator.setLocale('');
+        this.$validator.setLocale('cn');
     }
 
 }

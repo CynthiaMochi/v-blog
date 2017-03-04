@@ -27,7 +27,7 @@ export default {
             .then(({data: {articleList, total}}) => {
                 // 为什么要setTimeout
                 //console.log(articleList)
-                console.log(total)
+                //console.log(total)
                 this.article_list = articleList.map((article) => {
                     let { _id, title, content, contentToMark, tags: {name}, updatedAt, createdAt } = article;
                     return {
@@ -44,8 +44,8 @@ export default {
             })
         },
 
-        onTableChange() {
-          this.pagination.page++;
+        onTableChange(page) {
+          this.pagination.page = page.pagination.current;
           this.getList();
         },
         // 选择表格项目变化时
@@ -68,7 +68,7 @@ export default {
         },
 
         onCheck(article) {
-
+            this.$router.push(`/article/${article.id}`)
         },
 
         onEdit(article) {

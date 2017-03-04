@@ -87,7 +87,10 @@ export default [
     },
     {
         path: '/signup',
-        component: Signup
+        component: Signup,
+        meta: {
+          auth: false
+        }
     },
     {
         path: '*', component: NotFound

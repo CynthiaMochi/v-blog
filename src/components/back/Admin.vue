@@ -5,7 +5,7 @@
       <div class="column is-2">
         <sidebar></sidebar>
       </div>
-      <div class="column is-10 ">
+      <div class="column is-10">
         <router-view></router-view>
       </div>
     </div>
@@ -32,6 +32,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

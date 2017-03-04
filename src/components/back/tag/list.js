@@ -15,8 +15,8 @@ export default {
             },
             modal: {
                 isShowCreate: false,
-                editing: ''
-            }
+            },
+            editing: ''
 
         }
     },
@@ -32,45 +32,47 @@ export default {
         onOkEdit() {
 
             let name = this.$refs.editInput.value,
-                data = this.modal.editing,
+                data = this.editing,
                 tag = {},
                 vm = this;
-            if (data) {
-                tag = {id: data._id,
-                        name: name}
+            if (name) {
+                tag = data
+                    ? {id: data._id, name: name}
+                    : {name: name}
+
+                tagApi.create(tag)
+                    .then((res) => {
+
+                      if (res.status == 200) {
+                        console.log(res)
+                        vm.$notify.success({content: res.data.message})
+                      }
+                    })
+                    .catch((err) => {
+                      console.log(err)
+                    })
+                this.editing = ''
+                this.getList()
+
             } else {
-                tag = {name: name}
+                this.editing = ''
+                vm.$notify.warning({content: '输入不能为空'})
             }
-            console.log(data, tag)
 
-            tagApi.create(tag)
-                .then((res) => {
 
-                  if (res.status == 200) {
-                    console.log(res)
-                    vm.$notify.success({content: res.data.message})
-                  }
-                })
-                .catch((err) => {
-                  console.log(err)
-                })
-            this.modal.editing = ''
-            this.getList()
         },
 
         onCancel() {
-            this.modal.editing = ''
+            this.editing = ''
         },
 
         onEdit(tag) {
-            console.log(tag)
-            this.modal.editing = Object.assign({}, tag);
+            this.editing = Object.assign({}, tag);
             this.modal.isShowCreate = true;
         },
 
         onCheck(tag) {
-          console.log(tag)
-            let content = `标签名'${tag.name}'的文章数${tag.articles.length}篇`
+            let content = `标签名'${tag.name}'的文章数为 ${tag.articles.length}篇`
             let m = this.$modal.open({
                 content: content,
                 onOk: () => {
@@ -96,15 +98,13 @@ export default {
             })
         },
 
-        onTableChange() {
-          console.log('change')
-          this.pagination.page++;
-          console.log(this.pagination.page)
+        onTableChange(page) {
+          console.log(page)
+          this.pagination.page = page.pagination.current;
           this.getList();
         },
         // 选择表格项目变化时
         onSelectChange(key, value) {
-            // 能获取到选中的数组
 
             if (value.length) {
                 this.hasSelect = true;

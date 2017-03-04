@@ -91,12 +91,11 @@ router.post('/article/list/back', function (req, res, next) {
 })
 
 router.post('/article/list/front', function (req, res, next) {
-  console.log(req.body)
   // 如果有tag
     let {page, limit, tags} = req.body
     articleApi.getList(page, limit, tags)
         .then((result) => {
-          console.log(result[0])
+          console.log(result)
             let articleList = result[0],
                 total = result[1],
                 totalPage = Math.ceil(total / limit);

@@ -1,5 +1,6 @@
 <template>
-    <div class="box">
+  <div class="system-back">
+    <div class="box signup">
         <h3 class="title is-3">欢迎注册</h3>
         <form method="POST" @submit.prevent="onSubmit">
             <p class="control">
@@ -34,11 +35,12 @@
                 <button class="button is-primary" type="submit">注册</button>
               </p>
               <p class="control">
-                <button class="button" @click="toLogin">登录</button>
+                <button class="button" type="button" @click="toLogin">登录</button>
               </p>
             </div>
         </form>
     </div>
+  </div>
 </template>
 
 <script>
@@ -46,6 +48,22 @@ import Signup from './signup.js'
 export default Signup
 </script>
 
-<style>
+<style scoped>
 
+  .system-back {
+    width: 100%;
+    height: 100%;
+    background-image: url(../../../assets/signup.jpg);
+    background-size: cover;
+  }
+  .signup {
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 30rem;
+    max-height: 20rem;
+  }
 </style>

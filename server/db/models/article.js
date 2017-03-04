@@ -23,7 +23,7 @@ ArticleSchema.statics = {
     // 不知道能不能写一半
     fetch() {
         return this
-            .find()
+            .find({})
             .populate('tags')
             .sort({_id: -1})
     },

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="tag-pane">
     <data-table :data="tag_list" :change="onTableChange" :on-select-change="onSelectChange" checkable rowKey="name" show-index :pagination="pagination" bordered>
-      <table-toolbar has-refresh has-columns-control>
+      <table-toolbar>
         <template slot="left">
           <div class="level-item">
             <a class="button is-primary is-outlined"
@@ -47,8 +47,9 @@
         </div>
         <div class="control is-grouped">
           <p class="control is-expanded">
-            <input class="input" type="text" placeholder="请在此输入标签名"
-            ref="editInput" :value="modal.editing.name">
+            <input name="tag" class="input" type="text"
+             placeholder="请在此输入标签名"
+            ref="editInput" :value="editing.name">
           </p>
         </div>
       </div>
@@ -62,6 +63,8 @@ import List from './list.js'
 export default List
 </script>
 
-<style>
-
+<style scoped>
+  .tag-pane {
+    padding: 2rem;
+  }
 </style>

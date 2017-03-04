@@ -32,7 +32,7 @@ export default {
             })
         },
         toSignup() {
-            // this?
+          console.log('signup')
             this.$router.push({
                 path: '/signup'
             })

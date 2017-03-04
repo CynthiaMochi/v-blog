@@ -7,9 +7,11 @@ export default {
   UserSignup({ commit }, data) {
     userApi.signup(data)
           .then(result => {
-            console.log(result)
-            if (result.code !== -200 && result.status === 200) {
-              commit('USER_SIGNUP', result.data.token)
+            let data = result.data
+
+            if (!data.code && result.status === 200) {
+              Vue.prototype.$notify.open({content: '成功'})
+              commit('USER_SIGNUP', data.token)
               // replace 不会替换历史记录
               router.replace({path: '/admin'})
             }
@@ -22,8 +24,11 @@ export default {
   UserLogin({ commit }, data) {
     userApi.login(data)
           .then(result => {
+            let data = result.data
+
             console.log(result)
-            if (result.code !== -200 && result.status === 200) {
+            if (!data.code && result.status === 200) {
+              Vue.prototype.$notify.open({content: '成功'})
               commit('USER_LOGIN', data.token)
               // replace 不会替换历史记录
               router.replace({path: '/admin'})
