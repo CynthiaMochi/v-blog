@@ -55,7 +55,6 @@ router.post('/article/create', function (req, res, next) {
         // 创建
         articleApi.create(req.body)
             .then((result) => {
-              console.log('result'+result)
                 if (result) {
                     res.status(200)
                         .send({
@@ -95,7 +94,7 @@ router.post('/article/list/front', function (req, res, next) {
     let {page, limit, tags} = req.body
     articleApi.getList(page, limit, tags)
         .then((result) => {
-          console.log(result)
+
             let articleList = result[0],
                 total = result[1],
                 totalPage = Math.ceil(total / limit);
@@ -126,9 +125,7 @@ router.post('/article/tag', function (req, res, next) {
 
 // 删除需要验证
 router.post('/article/remove', function (req, res, next) {
-  console.log(req.body.id)
     let ids = req.body.id.split(',')
-    console.log('routes' + ids)
     articleApi.remove(ids)
         .then(({result: {ok, n}}) => {
 
