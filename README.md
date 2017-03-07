@@ -32,7 +32,7 @@
 #### 安装依赖
 `npm install`
 
-#全局安装supervisor
+#### 全局安装supervisor
 `npm install -g supervisor`
 
 ### 启动
