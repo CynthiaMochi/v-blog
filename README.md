@@ -25,40 +25,38 @@
 * mongoDB
 
 ### 安装
-``` bash
+
 # 克隆仓库到本地
-git clone
+`git clone`
 
 # 安装依赖
-npm install
+`npm install`
 
 #全局安装supervisor
-npm install -g supervisor
-```
+`npm install -g supervisor`
 
 ### 启动
-```
-# 启动mongodb
-# 在安装mongodb的bin文件夹下启动
-mongod
 
-# 启动后端服务器
-# 进入server文件夹
-cd server
-supervisor server
+#### 启动mongodb
+#### 在安装mongodb的bin文件夹下启动
+`mongod`
+
+#### 启动后端服务器
+#### 进入server文件夹
+`cd server`
+`supervisor server`
 
 # 启动前端项目
 # 回到根目录
-npm run dev
+`npm run dev`
 
-```
 
 ### 注意
-前后端分离项目，端口号不同，涉及跨域，使用webpack的proxyTable
-进入config文件夹下的index.js,查看proxyTable的配置
+前后端分离项目，端口号不同，涉及跨域，使用`webpack`的`proxyTable`
+进入`config`文件夹下的`index.js`,查看`proxyTable`的配置
 
 ### 收获
-熟悉了框架的用法，尤其是数据库的操作（果然还是stackoverflow好用）。了解了jwt，前端拦截等概念。还有很多要学要改进呐~
+熟悉了框架的用法，尤其是数据库的操作（果然还是stackoverflow好用）。了解了`jwt`，前端拦截等概念。还有很多要学要改进呐~
 刚申请域名还在备案，服务器部署也踩了些坑，还不能在线访问。。
 
 ### todo
