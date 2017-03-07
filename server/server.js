@@ -19,8 +19,7 @@ app.use(cookieParser())
 app.use(cors())
 
 require('./routes')(app)
-
-app.set('port', (process.env.port || 3000))
+app.set('port', (process.env.port || 3001))
 app.listen(app.get('port'), function () {
     console.log('listening on http://localhost:' + app.get('port'))
 })
