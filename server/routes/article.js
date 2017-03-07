@@ -126,9 +126,10 @@ router.post('/article/tag', function (req, res, next) {
 // 删除需要验证
 router.post('/article/remove', function (req, res, next) {
     let ids = req.body.id.split(',')
+    console.log(ids)
     articleApi.remove(ids)
         .then(({result: {ok, n}}) => {
-
+            console.log(result)
             if (ok && n > 0) {
                 res.status(200)
                     .send({

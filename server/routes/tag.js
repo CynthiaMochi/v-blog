@@ -6,7 +6,6 @@ const api = require('./controller/tag')
 
 router.post('/tag/create', function (req, res, next) {
     // 需要判断发的是否为空
-    console.log('name'+req.body.name, req.body)
     if (req.body.id) {
       let id = req.body.id
       api.update(id, {name: req.body.name})
@@ -40,7 +39,6 @@ router.post('/tag/create', function (req, res, next) {
 // 带分页获取
 // 需要添加验证
 router.post('/tag/list/back', function (req, res, next) {
-    console.log(res.body)
     let { page, limit } = req.body
     api.getList(page, limit).then((result) => {
         // 返回一个数组
@@ -90,6 +88,7 @@ router.post('/tag/list', function (req, res, next) {
 router.post('/tag/remove', function (req, res, next) {
     let ids = req.body.id.split(',')
     console.log('routes' + ids)
+    // 还是有点bug，主要是datatable变化时，勾选的问题
     api.remove(ids)
         .then(({result: {ok, n}}) => {
 
@@ -99,7 +98,7 @@ router.post('/tag/remove', function (req, res, next) {
                         message: '删除成功'
                     })
             } else{
-                throw new Error('该文章不存在');
+                throw new Error('该标签不存在');
             }
         })
         .catch(next)

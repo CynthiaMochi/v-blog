@@ -7,7 +7,6 @@
 <script>
 import Simple from './article/list.vue'
 import api from '../../api/request.js'
-import articleData from '../../api/articles.js'
 
 const articleApi = api.article;
 export default {

@@ -93,7 +93,7 @@ export default {
                     return {isDeletable: vm.isDeletable(tag),
                             ...tag}
                 })
-                console.log(this.tag_list)
+
                 this.pagination.total = total;
             })
         },

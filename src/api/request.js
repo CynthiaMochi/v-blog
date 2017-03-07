@@ -12,7 +12,6 @@ if (localStorage.getItem('jwt')) {
   /* localStorage.getItem('jwt')是带引号的字符串
     Bearer token(通过Authorization头部字段发送到服务端便于验证)的格式：Bearer XXXXXXXXXX
   */
-  console.log(localStorage.getItem('jwt'))
     back_instance.defaults.headers.common['Authorization'] = 'Bearer' + localStorage.getItem('jwt').replace(/(^\")|(\"$)/g,'')
 }
 
@@ -43,7 +42,6 @@ export default {
         // 获取文章列表
         // 如果有参数需要再获取数量
         getListBack(data) {
-          console.log(data)
           return back_instance.post('/api/article/list/back', data)
         },
 
@@ -58,7 +56,6 @@ export default {
         },
 
         remove(data) {
-          console.log(data)
           return back_instance.post('/api/article/remove', data)
         },
 

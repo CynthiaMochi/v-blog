@@ -52,7 +52,6 @@ module.exports = {
     },
 
     update:function (id, data) {
-        console.log(id)
         return Tag.update({_id: id}, {$set: data}).exec()
     },
     // 可以批量删除，传入数组

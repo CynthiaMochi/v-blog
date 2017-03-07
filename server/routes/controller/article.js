@@ -1,10 +1,3 @@
-//后台
-//创建文章
-//修改文章
-//前台
-//获取文章列表
-//文章详情页
-//根据tag筛选
 const mongoose = require('mongoose')
 const Article = mongoose.model('Article')
 const Tag = mongoose.model('Tag')
@@ -141,22 +134,21 @@ module.exports = {
         // 批量删除要把tag里的article也删了
         // 根据articleId查找tag
         // tag删除articleid
+        //
         let promises = ids.map(id => {
           return Article.findById(id)
                   .then(article => {
-                     return Tag.findById(article.tags)
+                    // http://stackoverflow.com/questions/14763721/mongoose-delete-array-element-in-document-and-save
+                    // 使用document的pull和pullall来删除外键
+                    return  Tag.update({_id: article.tags}, {$pull: {articles: id}})
                   })
-                  .then(tag => {
-                     tag.articles.splice(tag.articles.indexOf(id, 1))
-                     return tag.save()
+                  .then((result) => {
+                    return Article.remove({_id: id})
+                                .exec()
                   })
-        })
+        });
 
        return Promise.all(promises)
-                  .then(results => {
-                      return Article.remove({_id: {$in: ids}})
-                                .exec();
-                  })
                  .catch(err => {
                     console.log(err)
                  })
