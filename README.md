@@ -26,10 +26,10 @@
 
 ### 安装
 
-# 克隆仓库到本地
+#### 克隆仓库到本地
 `git clone`
 
-# 安装依赖
+#### 安装依赖
 `npm install`
 
 #全局安装supervisor
@@ -38,16 +38,16 @@
 ### 启动
 
 #### 启动mongodb
-#### 在安装mongodb的bin文件夹下启动
+在安装mongodb的bin文件夹下启动
 `mongod`
 
 #### 启动后端服务器
-#### 进入server文件夹
+进入server文件夹
 `cd server`
 `supervisor server`
 
-# 启动前端项目
-# 回到根目录
+#### 启动前端项目
+回到根目录
 `npm run dev`
 
 
