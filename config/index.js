@@ -26,10 +26,10 @@ module.exports = {
     port: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/', // 设置访问地址?
     proxyTable: {
       '/api':{
-        target:'http://localhost:3001/api',
+        target:'http://localhost:3000/api',
         changeOrigin:true,
         pathRewrite:{
           '^/api':''

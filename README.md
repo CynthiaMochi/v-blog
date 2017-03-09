@@ -20,6 +20,8 @@
 * 标签分类筛选
 * 基本的注册登录
 
+在线Demo cynthiamochi.com
+
 ### 环境
 * Node.js v6
 * mongoDB

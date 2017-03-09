@@ -2,20 +2,6 @@ const mongoose = require('mongoose')
 const Tag = mongoose.model('Tag')
 const Article = mongoose.model('Article')
 
-// 在路由中写回调，操作获得的数据
-
-// 创建文章
-// 对数据库做更改
-// 重定向回什么页面
-// exports.new = function (req, res) {
-
-// }
-
-//文章详情
-// pv是page view页面刷新和点击量统计
-// 根据id找到一篇文章，发出去
-
-
 module.exports = {
     find:function (id) {
         // 可能要添加评论功能
@@ -56,7 +42,6 @@ module.exports = {
     },
     // 可以批量删除，传入数组
      remove:function (ids) {
-      console.log('controller'+ids)
         return Tag.remove({_id: {$in: ids}}).exec()
     }
 

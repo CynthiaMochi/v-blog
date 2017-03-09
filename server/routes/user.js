@@ -17,7 +17,6 @@ router.get('/admin', checkToken, function(req, res, next) {
 })
 
 router.post('/signup', function(req, res ,next) {
-  console.log(req.body)
   let username = req.body.username,
       password = req.body.password;
 
@@ -28,7 +27,6 @@ router.post('/signup', function(req, res ,next) {
     password: password
   })
   .then(result=> {
-    console.log(result)
     if (result.err) {
       res.send({
         code: -200,
@@ -61,7 +59,6 @@ router.post('/login', function(req, res, next) {
     password: password
   })
   .then(user => {
-    console.log(user)
     if (user && user.password === password) {
       res.status(200)
         .send({token: createToken(username)})

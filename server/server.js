@@ -18,8 +18,12 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(cors())
 
+// console.log(__dirname+'dist/index.html')
+// app.get('*', function(req, res) {
+//   res.sendFile(path.join(__dirname, '/dist/index.html'))
+// })
 require('./routes')(app)
-app.set('port', (process.env.port || 3001))
+app.set('port', (process.env.port || 3000))
 app.listen(app.get('port'), function () {
     console.log('listening on http://localhost:' + app.get('port'))
 })

@@ -2,15 +2,6 @@ const mongoose = require('mongoose')
 const Article = mongoose.model('Article')
 const Tag = mongoose.model('Tag')
 
-// 在路由中写回调，操作获得的数据
-
-// 创建文章
-// 对数据库做更改
-// 重定向回什么页面
-// exports.new = function (req, res) {
-
-// }
-
 //文章详情
 // pv是page view页面刷新和点击量统计
 // 根据id找到一篇文章，发出去
@@ -29,7 +20,6 @@ module.exports = {
     },
 
 // 需要验证，带分页
-// 能不能不要每次都写两种方法，把验证拦截统一？？
 // page:第几页， limit：一页几个
     getList: function (page, limit, tags) {
 
