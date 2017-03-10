@@ -20,7 +20,7 @@
 * 标签分类筛选
 * 基本的注册登录
 
-在线Demo cynthiamochi.com
+[在线Demo](http://www.cynthiamochi.com "在线Demo")
 
 ### 环境
 * Node.js v6
@@ -58,7 +58,7 @@
 进入`config`文件夹下的`index.js`,查看`proxyTable`的配置
 
 ### 收获
-熟悉了框架的用法，尤其是数据库的操作（果然还是stackoverflow好用）。了解了`jwt`，前端拦截等概念。还有很多要学要改进呐~
+熟悉了框架的用法，尤其是mongoose（果然还是stackoverflow好用）。了解了`jwt`，前端拦截等概念。还有很多要学要改进呐~
 刚申请域名还在备案，服务器部署也踩了些坑，还不能在线访问。。
 
 ### todo

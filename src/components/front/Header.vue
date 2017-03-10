@@ -19,15 +19,15 @@
         <span></span>
         <span></span>
       </span>
-      <b-aside :is-show="isShow" width=250 :show-footer="false" title="MENU" @close="isShow=false">
-        <router-link to="/home" class="nav-item is-tab" exact>
+      <b-aside :is-show="isShow" :width=250 :show-footer="false" title="MENU" @close="isShow=false">
+        <router-link to="/home" class="nav-item is-tab" exact @click.native="isShow=false">
           <span class="icon route-head"><i class="fa fa-home fa-lg"></i></span>
           <span>HOME</span>
         </router-link>
-        <router-link to="/list" class="nav-item is-tab">
+        <router-link to="/list" class="nav-item is-tab" @click.native="isShow=false">
           <span class="icon route-head"><i class="fa fa-list fa-lg"></i></span><span>LIST</span>
         </router-link>
-        <router-link to="/about" class="nav-item is-tab">
+        <router-link to="/about" class="nav-item is-tab"  @click.native="isShow=false">
           <span class="icon route-head"><i class="fa fa-user fa-lg"></i></span><span>ABOUT</span>
         </router-link>
       </b-aside>

@@ -16,7 +16,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .loading-wrap {
         text-align: center;
     }

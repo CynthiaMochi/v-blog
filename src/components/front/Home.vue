@@ -1,9 +1,11 @@
 <template lang="html">
   <div>
-    <!-- <spinner :sho="loading"></spinner> -->
     <section class="tags">
       <a class="button" v-for="tag in tags" @click="onFilter(tag)" :class="{'is-success': tag.isChosen}">{{tag.tagName}}</a>
     </section>
+
+    <spinner :loading="loading" :list="articles.length" :resultCode="resultCode"></spinner>
+
     <full v-for="item in articles" :content="item" :key="item._id"></full>
 
     <footer class="load-more" v-if="loadMoreShow">
@@ -35,7 +37,9 @@
         chosen: [],
         loadMoreShow: false,
         loadMoreText: '加载更多',
-        loadMoreFlag: false
+        loadMoreFlag: false,
+        resultCode: -200,
+        loading: true
       }
     } ,
     components: {Full, Spinner},
@@ -55,20 +59,25 @@
 
         articleApi.getListFront({page: this.page, limit:this.limit, tags: this.chosen.join(',')})
             .then(result => {
-              console.log(result)
+
               if (result.status === 200) {
                 let data = result.data
 
                 this.articles = isTag ? data.articleList : this.articles.concat(data.articleList)
 
-                  if (data.hasNext) {
+                this.resultCode = 200;
+
+                if (data.hasNext) {
                     this.loadMoreShow = true
                     this.loadMoreFlag = false
                     this.loadMoreText = '加载更多'
-                  } else {
+                } else {
                     this.loadMoreShow = false
-                  }
+                }
               }
+
+              this.loading = false;
+
             })
       },
       // 先全获取
